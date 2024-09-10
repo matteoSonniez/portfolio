@@ -15,6 +15,9 @@ import styles2 from "./styles2.css";
 const sofia = Fira_Mono({ subsets: ["latin"], weight: "700" });
 
 export default function Home() {
+
+  const [myHeight, setMyHeight] = useState(null);
+  const [myWidth, setMyWidth] = useState(null);
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
 
@@ -45,6 +48,10 @@ export default function Home() {
 
   // Délai pour afficher le texte "projects" après l'animation des rectangles
   useEffect(() => {
+    const windowHeight = window.innerHeight;
+    setMyHeight(windowHeight);
+    const windowWidth = window.innerWidth;
+    setMyWidth(windowWidth);
     const timer = setTimeout(() => {
       setShowButton(true);
       setShowText(true);
@@ -168,7 +175,7 @@ export default function Home() {
       );
       const maxTranslation = 150;
       const translateX =
-        (mousePosition.x / window.innerWidth) * maxTranslation -
+        (mousePosition.x / myWidth) * maxTranslation -
         maxTranslation / 2;
 
       return {
