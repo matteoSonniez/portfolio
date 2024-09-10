@@ -320,7 +320,6 @@ export default function Home() {
             className="flex justify-center"
             custom={0}
             initial="hidden"
-            animate="visible"
             exit="exit" // Appliquer l'animation de disparition
             variants={lineVariants}
             animate={isExiting ? "exit" : "visible"} // Animation en fonction de l'état de sortie
@@ -331,7 +330,6 @@ export default function Home() {
             className="flex justify-center"
             custom={1}
             initial="hidden"
-            animate="visible"
             exit="exit"
             variants={lineVariants}
             animate={isExiting ? "exit" : "visible"}
@@ -342,7 +340,6 @@ export default function Home() {
             className="flex justify-center"
             custom={2}
             initial="hidden"
-            animate="visible"
             exit="exit"
             variants={lineVariants}
             animate={isExiting ? "exit" : "visible"}
@@ -380,7 +377,6 @@ export default function Home() {
                   onHoverEnd={() => setHoverButton(false)}
                   variants={buttonVariants}
                   initial="hidden"
-                  animate="open"
                   animate={
                     isExiting ? "exit" : hoverButton ? "hover" : "nothover"
                   }
@@ -392,7 +388,6 @@ export default function Home() {
                       className="w-8 h-8 place-self-center"
                       variants={fleche_variants}
                       initial="fleche1_open"
-                      animate="fleche1_hidden"
                       animate={hoverButton ? "fleche1_hidden" : "fleche1_open"}
                       src={Fleche.src}
                     />
@@ -400,7 +395,6 @@ export default function Home() {
                       className="w-8 h-8 place-self-center"
                       variants={fleche_variants}
                       initial="fleche2_hidden"
-                      animate="fleche2_open"
                       animate={hoverButton ? "fleche2_open" : "fleche2_hidden"}
                       src={Fleche.src}
                     />
