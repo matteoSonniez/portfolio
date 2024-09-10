@@ -4,7 +4,6 @@ import "../../app/styles.css";
 import React, { useRef, useState } from 'react';
 import { easeIn, easeInOut, motion } from "framer-motion";
 import Croix from '../../img/croix.png';
-import { useDimensions } from "../../app/use-dimensions";
 
 // Variants for the square animation (square expanding on hover)
 const squareVariants = {
@@ -35,7 +34,6 @@ const squareVariants = {
 const NavBar = ({navIsOpen}) => {
   const [isOpen, setIsOpen] = useState(false); // State to manage if nav is open
   const containerRef = useRef(null);
-  const { height } = useDimensions(containerRef);
 
   return (
     <motion.nav
@@ -43,7 +41,6 @@ const NavBar = ({navIsOpen}) => {
       animate={isOpen ? "open" : "closed"}
       onHoverStart={() => {navIsOpen(true) ; setIsOpen(true)}}
       onHoverEnd={() => {navIsOpen(false) ; setIsOpen(false)}}
-      custom={height}
       ref={containerRef}
       className="absolute z-40"
       style={{ top: 0, left: 0 }} // Set initial top and left position of the nav
