@@ -30,7 +30,6 @@ body {
   }
 }
 
-/* Styles pour l'overlay */
 .overlay {
   position: fixed;
   top: 0;
@@ -46,4 +45,20 @@ body {
 /* Classe utilisée pour l'animation de disparition */
 .overlay.fadeOut {
   animation: fadeOut 0.3s forwards ease-in-out; /* Animation de disparition */
+}
+
+/* CSS pour l'effet de dégradé et l'animation */
+.text-gradient {
+  display: inline-block;
+  background: linear-gradient(90deg, gray 0%, gray 50%, white 100%);
+  background-size: 200% 100%;
+  background-position: 0 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-position 0.6s ease-out;
+}
+
+.text-gradient:hover {
+  background-position: -100% 0;
 }

@@ -7,10 +7,12 @@ import "./globals.css";
 
 export default function RootLayout({ children }) {
   const [navOpen, setNavOpen] = useState(false);
+  const [hoverNavText, setHoverNavText] = useState(0);
   const [showOverlay, setShowOverlay] = useState(false); // Contrôle pour rendre l'overlay visible
   const [isFadingOut, setIsFadingOut] = useState(false); // Contrôle l'animation de disparition
 
   useEffect(() => {
+    console.log(showOverlay, "uuuuuuuuuuuu")
     if (navOpen) {
       setShowOverlay(true); // Afficher l'overlay lorsque le menu est ouvert
     } else if (showOverlay) {
@@ -24,16 +26,60 @@ export default function RootLayout({ children }) {
   }, [navOpen, showOverlay]);
 
   const crossVariants = {
-    open: {
-      rotate: 180,   // Rotation croix
-      scale: 2.5,   // Augmentation taille
+    open5: {
+      rotate: 585,   // Rotation croix
+      scale: 4.5,
+      x: 45,
+      y: 45,   // Augmentation taille
       transition: {
-        duration: 0.6,
+        duration: 0.3,
+        ease: [0.7, 0.4, 0.1, 0.05],  
+      },
+    },
+    open4: {
+      rotate: 495,   // Rotation croix
+      scale: 4.5,
+      x: 45,
+      y: 45,   // Augmentation taille
+      transition: {
+        duration: 0.3,
+        ease: [0.7, 0.4, 0.1, 0.05],  
+      },
+    },
+    open3: {
+      rotate: 405,   // Rotation croix
+      scale: 4.5,
+      x: 45,
+      y: 45,   // Augmentation taille
+      transition: {
+        duration: 0.3,
+        ease: [0.7, 0.4, 0.1, 0.05],  
+      },
+    },
+    open2: {
+      rotate: 315,   // Rotation croix
+      scale: 4.5,
+      x: 45,
+      y: 45,   // Augmentation taille
+      transition: {
+        duration: 0.3,
+        ease: [0.7, 0.4, 0.1, 0.05],  
+      },
+    },
+    open: {
+      rotate: 225,   // Rotation croix
+      scale: 4.5,
+      x: 45,
+      y: 45,   // Augmentation taille
+      transition: {
+        duration: 0.4,
         ease: [0.7, 0.4, 0.1, 0.05],  
       },
     },
     closed: {
-      rotate: 45,    // Aucune rotation
+      rotate: 45, 
+      x: 0,
+      y: 0,   // Aucune rotation
       scale: 1,     // Taille originale
       transition: {
         duration: 0.6,
@@ -42,22 +88,37 @@ export default function RootLayout({ children }) {
     },
   };
 
+  // Détermine l'animation à utiliser en fonction de navOpen et hoverNavText
+  const determineAnimation = () => {
+    if (navOpen) {
+      if (hoverNavText === 1) {
+        return "open2";
+      } else if (hoverNavText === 2) {
+        return "open3";
+      } else if (hoverNavText === 3) {
+        return "open4";
+      } else if (hoverNavText === 4) {
+        return "open5";
+      }
+      return "open";
+    }
+    return "closed";
+  };
+
   return (
     <html lang="en">
       <body className="bg-blackbg relative">
-        {/* Croix animée */}
-        <motion.img
+        {/* <motion.img
           src={Croix.src}
           alt="Croix"
           variants={crossVariants}
           initial="closed"
-          animate={navOpen ? "open" : "closed"}
-          className="w-[30px] h-[30px] m-[53px] absolute z-50 top-0 left-0"
+          animate={determineAnimation()} // Utilise la fonction pour déterminer l'animation
+          className="w-[30px] h-[30px] m-[53px] fixed z-50 top-0 left-0"
           style={{ transformOrigin: "center", pointerEvents: "none" }}  
         />
 
-        {/* Navigation */}
-        <Nav navIsOpen={setNavOpen} />
+        <Nav navIsOpen={setNavOpen} setHoverNavText={setHoverNavText}  /> */}
 
         {/* Overlay avec animation */}
         {showOverlay && (

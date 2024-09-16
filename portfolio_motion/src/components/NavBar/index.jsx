@@ -5,11 +5,10 @@ import React, { useRef, useState } from 'react';
 import { easeIn, easeInOut, motion } from "framer-motion";
 import Croix from '../../img/croix.png';
 
-// Variants for the square animation (square expanding on hover)
 const squareVariants = {
   open: {
-    width: 700,   // Expanded square width
-    height: 1000, // Expanded square height
+    width: "45vw",   // Expanded square width
+    height: "100vh", // Expanded square height
     top: 0,       // Move the square up
     left: 0,      // Move the square to the left
     transition: {
@@ -31,28 +30,62 @@ const squareVariants = {
   },
 };
 
-const NavBar = ({navIsOpen}) => {
-  const [isOpen, setIsOpen] = useState(false); // State to manage if nav is open
+const NavBar = ({navIsOpen, setHoverNavText}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [showText, setShowText] = useState(false); // State to manage if nav is open
   const containerRef = useRef(null);
+
+  
+const showNavText = () => {
+  setTimeout(() => {
+    setShowText(true);
+  }, 600);
+};
 
   return (
     <motion.nav
       initial={false}
       animate={isOpen ? "open" : "closed"}
-      onHoverStart={() => {navIsOpen(true) ; setIsOpen(true)}}
-      onHoverEnd={() => {navIsOpen(false) ; setIsOpen(false)}}
+      onHoverStart={() => {navIsOpen(true) ; setIsOpen(true); showNavText()}}
+      onHoverEnd={() => {navIsOpen(false) ; setIsOpen(false); setShowText(false)}}
       ref={containerRef}
-      className="absolute z-40"
+      className="fixed z-40"
       style={{ top: 0, left: 0 }} // Set initial top and left position of the nav
     >
       {/* Square animation */}
       <motion.div
-        className="bg-blackmenu rounded-lg cursor-pointer"
+        className="bg-blackmenu rounded-lg"
         variants={squareVariants}
         initial="closed"
         animate={isOpen ? "open" : "closed"}
         style={{ position: "absolute", overflow: "hidden" }}  // Removed the fixed borderRadius to let variants control it
       >
+        <div className={`flex flex-col font-Title text-[130px] absolute leading-none bottom-0 p-12 ${showText ? "opacity-100 transition-opacity duration-500" : "opacity-0 translate-x-24"}`}>
+          <span 
+          onMouseEnter={() => setHoverNavText(1)} 
+          onMouseLeave={() => setHoverNavText(0)} 
+          className="cursor-pointer text-white hover:text-textmenu transition-colors duration-300">
+            PROJECTS
+          </span>
+          <span
+          onMouseEnter={() => setHoverNavText(2)} 
+          onMouseLeave={() => setHoverNavText(0)} 
+          className="cursor-pointer text-white hover:text-textmenu transition-colors duration-300">
+            ABOUT
+            </span>
+          <span 
+          onMouseEnter={() => setHoverNavText(3)} 
+          onMouseLeave={() => setHoverNavText(0)} 
+          className="cursor-pointer text-white hover:text-textmenu transition-colors duration-300">
+            CONTACT
+          </span>
+          <span 
+          onMouseEnter={() => setHoverNavText(4)} 
+          onMouseLeave={() => setHoverNavText(0)} 
+          className="cursor-pointer text-white hover:text-textmenu transition-colors duration-300">
+            PROJECTS
+          </span>
+        </div>
       </motion.div>
     </motion.nav>
   );

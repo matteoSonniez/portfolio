@@ -11,6 +11,7 @@ module.exports = {
         redbutt: "#F93434",
         blackbg: "#131212",
         blackmenu: "#2A2929",
+        textmenu: "#4A4949",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

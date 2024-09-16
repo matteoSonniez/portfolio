@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { anticipate, delay, motion } from "framer-motion";
 import Nav from "../components/NavBar";
 import TextAnim from "../components/TextAnim";
-import Image1 from "../img/img1.jpg";
+import Image1 from "../img/img3.png";
 import Fleche from "../img/fleche-droitee.png";
 import Link from "next/link";
 import { useRef } from "react";
@@ -42,7 +42,7 @@ export default function Home() {
 
     // Attendre la fin de l'animation avant de naviguer (durée de 800ms ici)
     setTimeout(() => {
-      document.querySelector('a[href="/test"]').click(); // Déclencher la navigation en utilisant <Link>
+      document.querySelector('a[href="/projects"]').click(); // Déclencher la navigation en utilisant <Link>
     }, 800); // Durée en millisecondes qui correspond à l'animation
   };
 
@@ -119,11 +119,11 @@ export default function Home() {
     },
     exit: {
       scale: 0.2,
-      width: 300, // Largeur à 300px lorsqu'open
-      height: 300,
+      width: 0, // Largeur à 300px lorsqu'open
+      height: 0,
+      opacity:1,
       transition: {
-        delay: 0.2,
-        duration: 0.4,
+        duration: 0.3,
         ease: [0.7, 0.4, 0.1, 0.05],
       },
     },
@@ -195,7 +195,7 @@ export default function Home() {
     return (
       <motion.div
         key={index}
-        className="overflow-hidden opacity-65"
+        className="overflow-hidden opacity-55 relative"
         style={{
           borderRadius: "5px",
           width: "450px",
@@ -205,7 +205,7 @@ export default function Home() {
         initial="initial"
         animate={rectangleVariants(rectPosition).animate}
       >
-        <img src={Image1.src} />
+        <img className="object-cover w-full h-full filter grayscale" src={Image1.src} />
       </motion.div>
     );
   });
@@ -315,7 +315,7 @@ export default function Home() {
         {!isExiting && (
           <motion.div
             ref={ref}
-            className="box absolute opacity-10 z-30 mix-blend-luminosity"
+            className="box absolute opacity-100 z-30 mix-blend-difference pointer-events-none"
             style={{ x, y }}
           />
         )}
@@ -361,7 +361,7 @@ export default function Home() {
             >
               {items.map((item, index) => (
                 <motion.div
-                  className="self-center p-0 m-0 leading-none scale-150"
+                  className="self-center p-0 m-0 leading-none scale-150 cursor-default"
                   key={index}
                   custom={index} // Passe l'index ici
                   variants={letterVariant}
@@ -374,7 +374,7 @@ export default function Home() {
                 </motion.div>
               ))}
 
-              <Link href="/test" passHref>
+              <Link href="/projects" passHref>
                 <a className="hidden"></a>{" "}
                 {/* Lien caché qui permet la navigation */}
               </Link>
@@ -388,7 +388,7 @@ export default function Home() {
                     isExiting ? "exit" : hoverButton ? "hover" : "nothover"
                   }
                   onClick={(e) => handleLinkClick(e)}
-                  className="bg-redbutt mb-4 cursor-pointer rounded-full ml-10 relative z-30 self-center"
+                  className="bg-redbutt mb-4 cursor-pointer rounded-full ml-10 relative z-50 self-center"
                 >
                   <div className="w-16 h-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-hidden">
                     <motion.img
