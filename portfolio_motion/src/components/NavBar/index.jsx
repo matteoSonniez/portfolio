@@ -2,7 +2,7 @@
 
 import "../../app/styles.css";
 import React, { useRef, useState } from 'react';
-import { easeIn, easeInOut, motion } from "framer-motion";
+import { circIn, easeIn, easeInOut, motion } from "framer-motion";
 import Croix from '../../img/croix.png';
 
 const squareVariants = {
@@ -12,8 +12,8 @@ const squareVariants = {
     top: 0,       // Move the square up
     left: 0,      // Move the square to the left
     transition: {
-      duration: 0.7,
-      ease: [1, 0, 0, 1],  // Slow start, then accelerating smoothly
+      duration: 0.5, 
+      ease: "circIn",// Slow start, then accelerating smoothly
     },
     borderRadius: "0%"  // Border radius for rounded corners
   },
@@ -23,8 +23,8 @@ const squareVariants = {
     top: 20,      // Original position
     left: 20,     // Original position
     transition: {
-      duration: 0.6,
-      ease: [1, 0, 0, 1],  // Smooth and natural closing transition
+      duration: 0.4,
+      ease: "circIn",  // Smooth and natural closing transition
     },
     borderRadius: "10%"  // Border radius for completely rounded corners when closed
   },

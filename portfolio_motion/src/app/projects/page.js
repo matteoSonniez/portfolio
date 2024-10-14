@@ -4,6 +4,7 @@ import { delay, motion, useScroll, useTransform } from "framer-motion";
 import Boxs from "../../components/Box";
 import BoxsBis from "../../components/BoxBis";
 import { useRouter } from "next/navigation";
+import BackImage from '../../img/back1.png';
 import { on } from "events";
 
 const Page = () => {
@@ -115,7 +116,7 @@ const Page = () => {
           variants={textVariantContainer}
           initial="left_hidden"
           animate={showText ? "left_scroll" : "left_hidden"}
-          className="font-Title text-[280px]  bg-white w-full h-[50vh] leading-none flex items-end pl-10"
+          className="font-Title bg-white text-[280px] bg-[url('/img/back2.png')] bg-cover bg-center w-full h-[50vh] leading-none flex items-end pl-10"
         >
 
           <motion.div
@@ -158,7 +159,7 @@ const Page = () => {
           variants={conteneurVariantLeft}
           initial="visible"
           animate={oneExpend ? "hidden" : "visible"}
-          className="w-screen flex bg-blackbg justify-center py-[80px]">
+          className="w-screen flex bg-black justify-center py-[80px]">
           <Boxs setOneExpend={setOneExpend} oneExpend={oneExpend}></Boxs>
         </motion.div>
 
@@ -166,7 +167,7 @@ const Page = () => {
           variants={conteneurVariantRight}
           initial="visible"
           animate={oneExpend ? "hidden" : "visible"}
-          className="w-screen bg-blackbg flex justify-center py-[80px]">
+          className="w-screen bg-black flex justify-center py-[80px]">
           <BoxsBis setOneExpend={setOneExpend} oneExpend={oneExpend}></BoxsBis>
         </motion.div>
 
@@ -174,7 +175,7 @@ const Page = () => {
           variants={conteneurVariantLeft}
           initial="visible"
           animate={oneExpend ? "hidden" : "visible"}
-          className="w-screen bg-blackbg flex justify-center py-[80px]">
+          className="w-screen bg-black flex justify-center py-[80px]">
           <Boxs setOneExpend={setOneExpend} oneExpend={oneExpend}></Boxs>
         </motion.div>
 
@@ -182,7 +183,7 @@ const Page = () => {
           variants={conteneurVariantRight}
           initial="visible"
           animate={oneExpend ? "hidden" : "visible"}
-          className="w-screen bg-blackbg flex justify-center py-[80px]">
+          className="w-screen bg-black flex justify-center py-[80px]">
           <BoxsBis setOneExpend={setOneExpend} oneExpend={oneExpend}></BoxsBis>
         </motion.div>
 

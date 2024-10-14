@@ -12,6 +12,7 @@ module.exports = {
         blackbg: "#131212",
         blackmenu: "#2A2929",
         textmenu: "#4A4949",
+        contactText: "#818289",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

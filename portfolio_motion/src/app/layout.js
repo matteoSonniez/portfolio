@@ -72,8 +72,8 @@ export default function RootLayout({ children }) {
       x: 45,
       y: 45,   // Augmentation taille
       transition: {
-        duration: 0.4,
-        ease: [0.7, 0.4, 0.1, 0.05],  
+        duration: 0.5,
+        ease: "circIn", 
       },
     },
     closed: {
@@ -82,8 +82,8 @@ export default function RootLayout({ children }) {
       y: 0,   // Aucune rotation
       scale: 1,     // Taille originale
       transition: {
-        duration: 0.6,
-        ease: [0.05, 0.1 ,0.4 , 0.7],  
+        duration: 0.4,
+        ease: "circIn", 
       },
     },
   };
@@ -107,7 +107,8 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className="bg-blackbg relative">
+      <body className="bg-black relative">
+
         {/* <motion.img
           src={Croix.src}
           alt="Croix"
