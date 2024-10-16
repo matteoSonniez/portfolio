@@ -11,6 +11,7 @@ import {
 import { Oswald } from "next/font/google";
 import { Afacad } from "next/font/google";
 import { Anton } from "next/font/google";
+import { Noto_Serif_Oriya } from "next/font/google";
 import "./globals.css";
 import Croix from "../img/croix.png";
 import Croix2 from "../img/croix2.png";
@@ -19,12 +20,17 @@ import Laptop from "../img/laptop.jpg";
 import Laptop2 from "../img/laptop2.webp";
 import Laptop3 from "../img/laptop3.jpg";
 import Down from "../img/down2.png";
-import { ReactLenis } from "lenis/react";
+import Bg from "../img/bg2.jpg";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "@studio-freight/lenis";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const sofia = Oswald({ subsets: ["latin"], weight: "600" });
 const sofia2 = Oswald({ subsets: ["latin"], weight: "400" });
 const afacad = Afacad({ subsets: ["latin"], weight: "400" });
 const anton = Anton({ subsets: ["latin"], weight: "400" });
+const noto = Noto_Serif_Oriya({ subsets: ["latin"], weight: "600" });
 
 export default function Home() {
   const whiteDivRef = useRef(null);
@@ -35,6 +41,11 @@ export default function Home() {
   const [titleMain, setTitle] = useState(document.querySelector(".title_main"));
   const [isReveal, setIsReveal] = useState(false);
   const [isStartAnimate, setIsStartAnimate] = useState(false);
+
+  const gridRef = useRef(null);
+  const gridWrapRef = useRef(null);
+  const imagesRef = useRef(null);
+  const gridItemsRef = useRef([]);
 
   const finalDivRef = useRef(null);
   const projects1Ref = useRef(null);
@@ -127,19 +138,19 @@ export default function Home() {
       },
     },
     big: {
-      rotate: 810,
+      rotate: 610,
       scale: 100,
       x: 0,
       transition: {
-        duration: 1.2,
+        duration: 0.8,
       },
     },
     animate: {
       x: 0,
       scale: 1.5,
-      rotate: 1215,
+      rotate: 855,
       transition: {
-        duration: 1.2,
+        duration: 0.8,
       },
     },
   };
@@ -171,9 +182,8 @@ export default function Home() {
   const imageVariants = {
     hidden: { height: 0, filter: "grayscale(0%)" },
     visible: {
-      height: "60vh",
-      filter: "grayscale(0%)",
-      transition: { delay: 10, duration: 0.9, ease: "easeIn" },
+      height: "100vh",
+      transition: { delay: 1, duration: 0.9, ease: "easeIn" },
     },
   };
 
@@ -365,7 +375,7 @@ export default function Home() {
     const titleMain = titleMainRef.current;
     setTimeout(() => {
       setIsReveal(true);
-    }, 1200);
+    }, 1100);
     console.log("zzzzzz");
     if (isAnimating) return;
     isAnimating = true;
@@ -484,6 +494,88 @@ export default function Home() {
     }
   }, [showInfo, isFixed]);
 
+  useEffect(() => {
+    // Initialiser Lenis pour un défilement fluide
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing pour un effet doux
+      smooth: true,
+    });
+
+    const raf = (time) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+
+    const grid = gridRef.current;
+    const gridWrap = gridWrapRef.current;
+    const gridItems = gridItemsRef.current;
+    const image = imagesRef.current;
+
+    // Appliquer la perspective directement avec style.setProperty
+    // grid.style.setProperty('--perspective', '1000px');
+    // grid.style.setProperty('--grid-inner-scale', '0.5');
+
+    // Créer une timeline avec ScrollTrigger
+    const timeline = gsap.timeline({
+      defaults: { ease: "none" },
+      scrollTrigger: {
+        trigger: gridWrap,
+        start: "top bottom+=5%",
+        end: "bottom top-=5%",
+        scrub: true,
+      },
+    });
+
+    timeline
+      .set(grid, {
+        perspective: 1000,
+      })
+      .set(gridWrap, { transformStyle: "preserve-3d" })
+      .set(gridWrap, {
+        rotationY: 15,
+      })
+      .set(gridItems, {
+        z: () => gsap.utils.random(-1200, 200),
+      })
+      .fromTo(
+        gridItems,
+        {
+          xPercent: () => gsap.utils.random(-1500, -600),
+        },
+        {
+          xPercent: () => gsap.utils.random(800, 1800),
+        },
+        0
+      )
+      .fromTo(
+        gridItems.map((item) => item.querySelector(".grid__item-inner")),
+        {
+          scale: 1,
+        },
+        {
+          scale: 2.5,
+        },
+        0
+      )
+      .fromTo(
+        gridItems.map((item) => item.querySelector(".grid__item-inner")),
+        {
+          filter: "brightness(1)",
+        },
+        {
+          filter: "brightness(0.1)",
+        },
+        0
+      );
+
+    // Cleanup function
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
   // Animation de disparition des spans
 
   return (
@@ -496,8 +588,16 @@ export default function Home() {
         <img className="object-cover h-full w-full invert" src={Down.src}></img>
       </div>
       {!isReveal && (
-        <div className="text-white fixed h-[100vh] z-30 bg-blackbg top-0 w-screen justify-center text-[400px] flex flex-col leading-none px-24">
-          <div ref={titleMainRef} className="flex flex-col">
+        <div className="text-white fixed h-[100vh] z-30 bg-black top-0 w-screen justify-center text-[400px] flex flex-col leading-none">
+          <img
+            style={{ filter: "brightness(0.4)" }}
+            src={Bg.src}
+            className="absolute z-10 w-1/2 right-[10vw]"
+          ></img>
+          <div
+            ref={titleMainRef}
+            className="flex flex-col absolute z-20 ml-[5vw]"
+          >
             <div className="flex items-center space-x-4">
               <motion.span
                 // Référence du premier span
@@ -551,14 +651,14 @@ export default function Home() {
         ref={finalDivRef}
         className="w-screen h-[1050vh] z-20 flex flex-col items-center absolute"
       >
-        <div className="flex space-x-12 h-[100vh]">
+        <div className="flex h-[100vh]">
           <span className={`${anton.className} text-white text-[100px]`}>
             ABOUT ME
           </span>
-          
+
           <motion.div
             ref={imageRef}
-            className="w-[20vw] h-[200px] mt-[10vh] overflow-hidden"
+            className="w-[50vw] h-[100vh] left-0 absolute overflow-hidden z-10"
             initial="hidden"
             animate="visible"
             variants={imageVariants}
@@ -568,23 +668,26 @@ export default function Home() {
             }}
           >
             <img
-              className="object-cover w-full h-full opacity-90"
+              // style={{
+              //   filter: "brightness(0.3)"
+              // }}
+              className="object-cover w-full h-full"
               src={ImageProfile.src}
             ></img>
-            {/* <div
+            <div
               className="absolute top-0 left-0 w-full h-full pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(to left, rgba(19, 18, 18, 0) 0%, rgba(19, 18, 18, 0) 35%, rgba(19, 18, 18, 0.1) 55%, rgba(19, 18, 18, 0.4) 75%, rgba(19, 18, 18, 1) 100%)",
+                  "linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.1) 55%, rgba(0, 0, 0, 0.4) 75%, rgba(0, 0, 0, 1) 100%)",
               }}
             />
             <div
               className="absolute top-0 left-0 w-full h-full pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(to right, rgba(19, 18, 18, 0) 0%, rgba(19, 18, 18, 0) 35%, rgba(19, 18, 18, 0.1) 55%, rgba(19, 18, 18, 0.4) 75%, rgba(19, 18, 18, 1) 100%)",
+                  "linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.4) 55%, rgba(0, 0, 0, 0.8) 75%, rgba(0, 0, 0, 1) 100%)",
               }}
-            /> */}
+            />
           </motion.div>
           <div
             className={`${afacad.className} w-[30vw] h-[50vh] overflow-hidden mt-[10vh] sticky text-white top-[10vh] z-10 text-[26px]`}
@@ -600,6 +703,36 @@ export default function Home() {
             elit.
           </div>
         </div>
+        <section className="mt-[40vh] relative w-screen">
+          <div className="grid w-full" ref={gridRef}>
+            <div
+              className="grid-wrap grid grid-cols-3 gap-x-4 gap-y-1"
+              ref={gridWrapRef}
+            >
+              {Array.from({ length: 39 }).map((_, index) => (
+                <div
+                  className="grid__item w-[300px] h-[200px] bg-black"
+                  ref={(el) => (gridItemsRef.current[index] = el)}
+                  key={index}
+                >
+                  <div className="grid__item-inner rounded-xl overflow-hidden bg-black">
+                    <img
+                      ref={imagesRef}
+                      src={Laptop2.src}
+                      alt={`Laptop ${index}`}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <span
+            className={`${noto.className} text-[70px] leading-tight scale-y-125 text-white absolute right-[10vw] inset-y-1/2 transform -translate-y-1/2 text-right `}
+          >
+            Dream of a project ,<br></br>I will make it real.
+          </span>
+        </section>
+
         <motion.span
           ref={textProjectsRef}
           className={`${sofia2.className} sticky top-[35vh] mt-[60vh] my-[40vh] text-[200px] text-white`}
@@ -762,6 +895,7 @@ export default function Home() {
           ref={overlayPathRef}
           vector-effect="non-scaling-stroke"
           d="M 0 100 V 100 Q 50 100 100 100 V 100 z"
+          fill="#131212"
         />
       </svg>
     </div>

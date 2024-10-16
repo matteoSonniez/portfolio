@@ -1,49 +1,87 @@
-"use client";
+"use client"
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Laptop2 from "../../img/laptop2.webp";
+import Lenis from "@studio-freight/lenis"; // Importation de Lenis
 
 // Enregistrement du plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
 const Page = () => {
-    const wraper = useRef(null);
-    const box1Ref = useRef(null);
-    const box1InnerRef = useRef(null); // Référence pour la box
+  const gridRef = useRef(null);
+  const gridWrapRef = useRef(null);
+  const gridItemsRef = useRef([]); // Pour stocker les références des items de la grille
 
   useEffect(() => {
-    const box = box1Ref.current;
-    const boxInner = box1InnerRef.current; 
-    const boxWrapper = wraper.current; // Cibler la box
+    // Initialiser Lenis pour un défilement fluide
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing pour un effet doux
+      smooth: true,
+    });
+
+    const raf = (time) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+
+    const grid = gridRef.current;
+    const gridWrap = gridWrapRef.current;
+    const gridItems = gridItemsRef.current;
+
+    // Appliquer la perspective directement avec style.setProperty
+    // grid.style.setProperty('--perspective', '1000px');
+    // grid.style.setProperty('--grid-inner-scale', '0.5');
 
     // Créer une timeline avec ScrollTrigger
     const timeline = gsap.timeline({
       defaults: { ease: "none" },
       scrollTrigger: {
-        trigger: box, // Utiliser box comme trigger
-        start: "top bottom", // Début de l'animation (quand la box entre dans la vue)
-        end: "bottom top", // Fin de l'animation (quand la box sort de la vue)
-        markers: true, // Afficher les marqueurs pour le debug
-        scrub: true, // Animation liée au scroll
+        trigger: gridWrap,
+        start: "top bottom+=5%",
+        end: "bottom top-=5%",
+        scrub: true,
       },
     });
 
-    // Animation de la box
     timeline
-      .set(boxWrapper, { 
-        perspective: 800 
-       })
-      .set(box, { 
-        transformStyle: "preserve-3d" 
-       })
-       .to(box, {    
-        rotationY: 50, // Rotation sur l'axe Y
+      .set(grid, {
+        perspective: 1000,
       })
-      .to(box, {
-        xPercent: 50, // Rotation sur l'axe Y
-      }, 0)
-      
+      .set(gridWrap, {transformStyle:"preserve-3d"})
+      .set(gridWrap, {
+        rotationY: 15,
+      })
+      .set(gridItems, {
+        z: () => gsap.utils.random(-1200, 200),
+      })
+      .fromTo(
+        gridItems,
+        {
+          xPercent: () => gsap.utils.random(-1500, -600),
+        },
+        {
+          xPercent: () => gsap.utils.random(800, 1800),
+        },
+        0
+      )
+      .fromTo(
+        gridItems.map((item) => item.querySelector('.grid__item-inner')),
+        {
+          scale: 1,
+        },
+        {
+          scale: 2.5,
+        },
+        0
+      );
+
+    // Cleanup function
+    return () => {
+      lenis.destroy();
+    };
   }, []);
 
   return (
@@ -52,20 +90,19 @@ const Page = () => {
         Intro Content
       </div>
 
-      {/* Box avec animation 3D */}
-      <div ref={wraper}>
-        <div ref={box1Ref}>
-          <div
-            ref={box1InnerRef}
-            className="h-[100px] w-[200px] bg-red-500"
-            style={{
-              perspective: "1000px", // Perspective appliquée ici
-            }}
-          >
-            <img src={Laptop2.src} alt="Laptop Image" />
+      <section className="">
+        <div className="grid w-full" ref={gridRef}>
+          <div className="grid-wrap grid grid-cols-3 gap-x-4 gap-y-1" ref={gridWrapRef}>
+            {Array.from({ length: 44 }).map((_, index) => (
+              <div className="grid__item w-[300px] h-[200px]" ref={(el) => (gridItemsRef.current[index] = el)} key={index}>
+                <div className="grid__item-inner rounded-xl overflow-hidden">
+                  <img src={Laptop2.src} alt={`Laptop ${index}`} />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
       <div style={{ height: "100vh", backgroundColor: "lightblue" }}>
         Another Content Section

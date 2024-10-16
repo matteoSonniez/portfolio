@@ -1,0 +1,26 @@
+.grid {
+	display: grid;
+	place-items: center;
+	padding: 2rem;
+	width: 100%;
+}
+
+.grid-wrap {
+	height: var(--grid-height);
+	width: var(--grid-width);
+	display: grid;
+	grid-template-columns: repeat(var(--grid-columns),1fr);
+	gap: var(--grid-gap);
+	transform-style: preserve-3d;
+}
+
+.grid__item {
+	aspect-ratio: var(--grid-item-ratio);
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+	border-radius: 8px;
+	display: grid;
+	place-items: center;
+}
