@@ -8,10 +8,12 @@ import {
   useAnimation,
   delay,
 } from "framer-motion";
+import RecSkill from '../components/RectSkills';
 import { Oswald } from "next/font/google";
 import { Afacad } from "next/font/google";
 import { Anton } from "next/font/google";
 import { Noto_Serif_Oriya } from "next/font/google";
+import { Kanit } from "next/font/google";
 import "./globals.css";
 import Croix from "../img/croix.png";
 import Croix2 from "../img/croix2.png";
@@ -20,23 +22,35 @@ import Laptop from "../img/laptop.jpg";
 import Laptop2 from "../img/laptop2.webp";
 import Laptop3 from "../img/laptop3.jpg";
 import Down from "../img/down2.png";
-import Bg from "../img/bg2.jpg";
+import Dream1 from "../img/dream.jpg";
+import Dream2 from "../img/dream1.jpg";
+import Dream3 from "../img/dream2.webp";
+import Dream4 from "../img/dream3.png";
+import Dream5 from "../img/dream4.jpg";
+import Dream6 from "../img/dream5.jpg";
+import Dream7 from "../img/dream6.jpg";
+import Dream8 from "../img/dream7.webp";
+import Dream9 from "../img/dream8.webp";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const sofia = Oswald({ subsets: ["latin"], weight: "600" });
+const bobo = Kanit({ subsets: ["latin"], weight: "800" });
 const sofia2 = Oswald({ subsets: ["latin"], weight: "400" });
 const afacad = Afacad({ subsets: ["latin"], weight: "400" });
 const anton = Anton({ subsets: ["latin"], weight: "400" });
 const noto = Noto_Serif_Oriya({ subsets: ["latin"], weight: "600" });
 
 export default function Home() {
+  const [isScrollable, setIsScrollable] = useState(false);
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
   const whiteDivRef = useRef(null);
   const firstSpanRef = useRef(null);
   const titleMainRef = useRef(null);
   const overlayPathRef = useRef(null);
+  const overlayPath2Ref = useRef(null);
   const imageRef = useRef(null);
   const [titleMain, setTitle] = useState(document.querySelector(".title_main"));
   const [isReveal, setIsReveal] = useState(false);
@@ -45,7 +59,27 @@ export default function Home() {
   const gridRef = useRef(null);
   const gridWrapRef = useRef(null);
   const imagesRef = useRef(null);
+  const downRef = useRef(null);
+  const down2Ref = useRef(null);
+  const svgDownRef = useRef(null);
+  const polygonRef = useRef(null);
+  const hoverAreaRef = useRef(null);
   const gridItemsRef = useRef([]);
+
+  const line1Ref = useRef(null);
+  const line2Ref = useRef(null);
+  const line3Ref = useRef(null);
+  const line4Ref = useRef(null);
+  const line5Ref = useRef(null);
+  const line6Ref = useRef(null);
+  const line7Ref = useRef(null);
+  const line8Ref = useRef(null);
+  const line9Ref = useRef(null);
+  const line10Ref = useRef(null);
+
+  const allTitleRef = useRef(null);
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
 
   const finalDivRef = useRef(null);
   const projects1Ref = useRef(null);
@@ -89,6 +123,153 @@ export default function Home() {
   const [scrollMax, setScrollMax] = useState(0);
 
   const { scrollY } = useScroll();
+
+  const imagesDream = [
+    {
+      imgSrc: Dream1,
+    },
+    {
+      imgSrc: Dream2,
+    },
+    {
+      imgSrc: Dream3,
+    },
+    {
+      imgSrc: Dream4,
+    },
+    {
+      imgSrc: Dream5,
+    },
+    {
+      imgSrc: Dream6,
+    },
+    {
+      imgSrc: Dream7,
+    },
+    {
+      imgSrc: Dream8,
+    },
+    {
+      imgSrc: Dream9,
+    },
+    {
+      imgSrc: Dream1,
+    },
+    {
+      imgSrc: Dream2,
+    },
+    {
+      imgSrc: Dream3,
+    },
+    {
+      imgSrc: Dream4,
+    },
+    {
+      imgSrc: Dream5,
+    },
+    {
+      imgSrc: Dream6,
+    },
+    {
+      imgSrc: Dream7,
+    },
+    {
+      imgSrc: Dream8,
+    },
+    {
+      imgSrc: Dream9,
+    },
+    {
+      imgSrc: Dream1,
+    },
+    {
+      imgSrc: Dream2,
+    },
+    {
+      imgSrc: Dream3,
+    },
+    {
+      imgSrc: Dream4,
+    },
+    {
+      imgSrc: Dream5,
+    },
+    {
+      imgSrc: Dream6,
+    },
+    {
+      imgSrc: Dream7,
+    },
+    {
+      imgSrc: Dream8,
+    },
+    {
+      imgSrc: Dream9,
+    },
+    {
+      imgSrc: Dream1,
+    },
+    {
+      imgSrc: Dream2,
+    },
+    {
+      imgSrc: Dream3,
+    },
+    {
+      imgSrc: Dream4,
+    },
+    {
+      imgSrc: Dream5,
+    },
+    {
+      imgSrc: Dream6,
+    },
+    {
+      imgSrc: Dream7,
+    },
+    {
+      imgSrc: Dream8,
+    },
+    {
+      imgSrc: Dream9,
+    },
+    {
+      imgSrc: Dream1,
+    },
+    {
+      imgSrc: Dream2,
+    },
+    {
+      imgSrc: Dream3,
+    },
+    {
+      imgSrc: Dream4,
+    },
+    {
+      imgSrc: Dream5,
+    },
+    {
+      imgSrc: Dream6,
+    },
+    {
+      imgSrc: Dream7,
+    },
+    {
+      imgSrc: Dream8,
+    },
+    {
+      imgSrc: Dream9,
+    },
+    {
+      imgSrc: Dream1,
+    },
+    {
+      imgSrc: Dream2,
+    },
+    {
+      imgSrc: Dream3,
+    },
+  ];
 
   const { scrollYProgress: scrollYText } = useScroll({
     target: textProjectsRef,
@@ -278,12 +459,8 @@ export default function Home() {
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
-    // const newWidth = Math.min(100, 70 + scrollPosition / 20); // Limite la largeur à 100%
-    // setDivWidth(newWidth);
-    const imageWidth = imageRef.current.getBoundingClientRect().width;
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
-    setScrollMax(windowWidth - imageWidth / 2);
 
     if (textProjectsRef.current) {
       const textProjectsTop =
@@ -370,9 +547,11 @@ export default function Home() {
     }
   };
 
+
   const openMenu = () => {
     const overlayPath = overlayPathRef.current;
-    const titleMain = titleMainRef.current;
+    const titleMain = allTitleRef.current;
+
     setTimeout(() => {
       setIsReveal(true);
     }, 1100);
@@ -405,8 +584,8 @@ export default function Home() {
         {
           duration: 0.8,
           ease: "power3.in",
-          scaleY: 0.5,
-          // y: -200,
+          scaleY: 1.5,
+          y: -200,
           stagger: 0.05,
         },
         0.2
@@ -495,27 +674,111 @@ export default function Home() {
   }, [showInfo, isFixed]);
 
   useEffect(() => {
-    // Initialiser Lenis pour un défilement fluide
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing pour un effet doux
-      smooth: true,
-    });
-
-    const raf = (time) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
-    requestAnimationFrame(raf);
-
     const grid = gridRef.current;
     const gridWrap = gridWrapRef.current;
     const gridItems = gridItemsRef.current;
-    const image = imagesRef.current;
+    const down = downRef.current;
+    const down2 = down2Ref.current;
+    const line1 = line1Ref.current;
+    const line2 = line2Ref.current;
+    const line3 = line3Ref.current;
+    const line4 = line4Ref.current;
+    const line5 = line5Ref.current;
+    const line6 = line6Ref.current;
+    const line7 = line7Ref.current;
+    const line8 = line8Ref.current;
+    const line9 = line9Ref.current;
+    const line10 = line10Ref.current;
+    const title = titleRef.current;
+    const subtitle = subtitleRef.current;
+    const svgDown = svgDownRef.current;
+    const polygon = polygonRef.current;
 
-    // Appliquer la perspective directement avec style.setProperty
-    // grid.style.setProperty('--perspective', '1000px');
-    // grid.style.setProperty('--grid-inner-scale', '0.5');
+    // Masquer `down` et `down2` initialement
+    gsap.set([down, down2], { opacity: 0 });
+
+    // Timeline pour l'apparition des 4 lignes
+    const tlLines = gsap.timeline();
+
+    // Première timeline avec des animations
+    tlLines
+      .fromTo(
+        title,
+        {
+          y: 200,
+          ease: "power4.out",
+        },
+        {
+          y: 0,
+          ease: "power4.out",
+          duration: 1.5,
+        },
+        1
+      )
+      .fromTo(
+        subtitle,
+        {
+          y: 200,
+          ease: "power4.out",
+        },
+        {
+          y: 0,
+          ease: "power4.out",
+          duration: 1.2,
+        },
+        1.3
+      )
+      .fromTo(
+        [line2, line3, line4, line5, line6, line7, line8, line9],
+        { strokeDasharray: 200, strokeDashoffset: 200 },
+        {
+          strokeDashoffset: 0,
+          duration: 4,
+        },
+        2
+      )
+      .fromTo(
+        [line1, line10],
+        { strokeDasharray: 200, strokeDashoffset: 200 },
+        {
+          strokeDashoffset: 0,
+          duration: 1.5,
+        },
+        2.8
+      )
+      .add(() => {
+        // Ajouter une nouvelle timeline après la fin de la première
+        const tl = gsap.timeline({ repeat: -1 });
+
+        // Rendre `down` et `down2` visibles au début de leur animation
+        tl.set([down, down2], { opacity: 1 }) // Rendre visible avant l'animation
+          .fromTo(
+            [down, down2],
+            { strokeDasharray: 200, strokeDashoffset: 200 },
+            {
+              strokeDashoffset: 0,
+              duration: 2.5,
+              ease: "power1.outIn",
+              stagger: 0,
+            }
+          )
+          .to(
+            polygon,
+            {
+              fill: "white", // Remplit en blanc lors du hover
+              duration: 0.8,
+            },
+            "-=1.3"
+          )
+          .to(
+            svgDown,
+            {
+              y: 400, // Remplit en blanc lors du hover
+              duration: 1,
+            },
+            "-=0.7"
+          );
+      }, "-=2.3"); // Le "+=0" permet de démarrer immédiatement après la fin de `tlLines`
 
     // Créer une timeline avec ScrollTrigger
     const timeline = gsap.timeline({
@@ -537,15 +800,15 @@ export default function Home() {
         rotationY: 15,
       })
       .set(gridItems, {
-        z: () => gsap.utils.random(-1200, 200),
+        z: () => gsap.utils.random(-1000, 0),
       })
       .fromTo(
         gridItems,
         {
-          xPercent: () => gsap.utils.random(-1500, -600),
+          xPercent: () => gsap.utils.random(-1400, -700),
         },
         {
-          xPercent: () => gsap.utils.random(800, 1800),
+          xPercent: () => gsap.utils.random(500, 1200),
         },
         0
       )
@@ -555,7 +818,7 @@ export default function Home() {
           scale: 1,
         },
         {
-          scale: 2.5,
+          scale: 2,
         },
         0
       )
@@ -569,80 +832,200 @@ export default function Home() {
         },
         0
       );
+  }, []);
 
-    // Cleanup function
+  useEffect(() => {
+    // Initialiser Lenis pour un défilement fluide
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing pour un effet doux
+      smooth: true,
+    });
+
+    if (!isScrollable) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
+
+    const handleScrollAttempt = () => {
+      if (!isMenuOpen) {
+        openMenu();
+        setMenuOpen(true);
+      }
+      setTimeout(() => {
+        setIsScrollable(true);
+      }, 1500); // Passe l'état à true lorsqu'une tentative de scroll est captée
+    };
+
+    // Ajouter des écouteurs pour capter les événements de défilement
+    window.addEventListener("wheel", handleScrollAttempt); // Pour le défilement à la souris
+    window.addEventListener("touchmove", handleScrollAttempt); // Ajoutez cette ligne pour désactiver Lenis
+
+    const raf = (time) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+
     return () => {
+      window.removeEventListener("wheel", handleScrollAttempt);
+      window.removeEventListener("touchmove", handleScrollAttempt);
       lenis.destroy();
     };
-  }, []);
+  }, [isScrollable, isMenuOpen]);
 
   // Animation de disparition des spans
 
   return (
     <div className="relative flex flex-col">
-      <div
-        onClick={openMenu}
-        className={`w-16 h-16 fixed z-50 bottom-10 right-20 cursor-pointer hover:pt-2 transition-all duration-200 
-          ${!isStartAnimate && "opacity-0"} ${isReveal && "opacity-0"}`}
-      >
-        <img className="object-cover h-full w-full invert" src={Down.src}></img>
-      </div>
       {!isReveal && (
-        <div className="text-white fixed h-[100vh] z-30 bg-black top-0 w-screen justify-center text-[400px] flex flex-col leading-none">
-          <img
-            style={{ filter: "brightness(0.4)" }}
-            src={Bg.src}
-            className="absolute z-10 w-1/2 right-[10vw]"
-          ></img>
-          <div
-            ref={titleMainRef}
-            className="flex flex-col absolute z-20 ml-[5vw]"
+        <div className="text-white fixed h-[100vh] bg-black z-30 top-0 w-screen flex">
+          <svg
+            className="w-[100vw] h-[100vh] pointer-events-none absolute z-40"
+            width="100%"
+            height="100"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
           >
-            <div className="flex items-center space-x-4">
-              <motion.span
-                // Référence du premier span
-                onClick={() => console.log(scrollY)}
-                className={`${sofia.className} ${
-                  !isStartAnimate && "opacity-0"
-                }`}
-                style={{
-                  scaleY: 1.2,
-                }}
-                initial="visible"
-                animate={isExiting ? "hidden" : "visible"}
-                variants={spanVariantsLeft}
-                transition={{ duration: 0.5 }}
-              >
-                WEB
-              </motion.span>
-              {loadCroix ? (
-                <motion.img
-                  src={Croix.src}
-                  className="w-28"
-                  style={{ rotate, x, scale }}
-                ></motion.img>
-              ) : (
-                <motion.img
-                  src={Croix2.src}
-                  className="w-28 z-50"
-                  variants={croixVariant}
-                  initial="hidden"
-                  animate={controlCroix}
-                />
-              )}
-            </div>
-            <motion.span
-              className={`${sofia.className} ${!isStartAnimate && "opacity-0"}`}
-              style={{
-                scaleY: 1.2,
-              }}
-              initial="visible"
-              animate={isExiting ? "hidden" : "visible"}
-              variants={spanVariantsRight}
-              transition={{ duration: 0.5 }}
+            <path
+              ref={line1Ref}
+              d="M 23 0 L 23 100"
+              stroke="#2C2C2C"
+              strokeWidth="0.1"
+              fill="none"
+            />
+            <path
+              ref={line2Ref}
+              d="M 39 50 L 39 0"
+              stroke="#2C2C2C"
+              strokeWidth="0.1"
+              fill="none"
+            />
+            <path
+              ref={line3Ref}
+              d="M 39 50 L 39 100"
+              stroke="#2C2C2C"
+              strokeWidth="0.1"
+              fill="none"
+            />
+            <path
+              ref={line4Ref}
+              d="M 41 50 L 41 0"
+              stroke="#2C2C2C"
+              strokeWidth="0.1"
+              fill="none"
+            />
+            <path
+              ref={line5Ref}
+              d="M 41 50 L 41 100"
+              stroke="#2C2C2C"
+              strokeWidth="0.1"
+              fill="none"
+            />
+            <path
+              ref={line6Ref}
+              d="M 59 50 L 59 0"
+              stroke="#2C2C2C"
+              strokeWidth="0.1"
+              fill="none"
+            />
+            <path
+              ref={line7Ref}
+              d="M 59 50 L 59 100"
+              stroke="#2C2C2C"
+              strokeWidth="0.1"
+              fill="none"
+            />
+            <path
+              ref={line8Ref}
+              d="M 61 50 L 61 0"
+              stroke="#2C2C2C"
+              strokeWidth="0.1"
+              fill="none"
+            />
+            <path
+              ref={line9Ref}
+              d="M 61 50 L 61 100"
+              stroke="#2C2C2C"
+              strokeWidth="0.1"
+              fill="none"
+            />
+            <path
+              ref={line10Ref}
+              d="M 77 0 L 77 100"
+              stroke="#2C2C2C"
+              strokeWidth="0.1"
+              fill="none"
+            />
+          </svg>
+          <div
+            ref={svgDownRef}
+            onClick={openMenu}
+            className="w-[18vw] h-[100px] cursor-pointer absolute bottom-[15vh] left-1/2 transform -translate-x-1/2"
+          >
+            <svg
+              width="100%"
+              height="100"
+              viewBox="0 0 100 100"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
             >
-              DESIGN
-            </motion.span>
+              <polygon
+                ref={polygonRef}
+                points="0,0 50,50 100,0 100,15 50,65 0,15"
+                fill="transparent"
+                className="pointer-events-auto cursor-pointer opacity-40"
+              />
+              <path
+                ref={downRef}
+                d="M 0 0 L 50 50 L 100 0"
+                stroke="#2C2C2C"
+                strokeWidth="1.5"
+                fill="none"
+                className="pointer-events-auto cursor-pointer"
+              />
+              <path
+                ref={down2Ref}
+                d="M 100 15 L 50 65 L 0 15"
+                stroke="#2C2C2C"
+                strokeWidth="1.5"
+                fill="none"
+              />
+            </svg>
+          </div>
+
+          {/* Div pour l'effet de lumière */}
+          <div
+            className="absolute inset-0 z-40 bg-black pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,1) 100%)",
+            }}
+          ></div>
+
+          <div
+            ref={allTitleRef}
+            className="fixed z-50 self-center w-screen flex justify-center flex-col items-center space-y-5"
+          >
+            <div className="flex overflow-hidden items-center">
+              <span
+                ref={titleRef}
+                className={`${bobo.className} text-[100px] leading-none text-center tracking-wide`}
+              >
+                Web portfolio <br></br>matteo sonniez
+              </span>
+            </div>
+            <div className="flex overflow-hidden items-center">
+              <span
+                ref={subtitleRef}
+                className={`${afacad.className} text-[24px] text-gray-300 leading-none text-center opacity-60`}
+              >
+                Innovative web developer crafting <br></br>unique user
+                experiences.
+              </span>
+            </div>
           </div>
         </div>
       )}
@@ -651,75 +1034,26 @@ export default function Home() {
         ref={finalDivRef}
         className="w-screen h-[1050vh] z-20 flex flex-col items-center absolute"
       >
-        <div className="flex h-[100vh]">
-          <span className={`${anton.className} text-white text-[100px]`}>
-            ABOUT ME
-          </span>
-
-          <motion.div
-            ref={imageRef}
-            className="w-[50vw] h-[100vh] left-0 absolute overflow-hidden z-10"
-            initial="hidden"
-            animate="visible"
-            variants={imageVariants}
-            transition={{ duration: 0.5 }}
-            style={{
-              x: imageX,
-            }}
-          >
-            <img
-              // style={{
-              //   filter: "brightness(0.3)"
-              // }}
-              className="object-cover w-full h-full"
-              src={ImageProfile.src}
-            ></img>
-            <div
-              className="absolute top-0 left-0 w-full h-full pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.1) 55%, rgba(0, 0, 0, 0.4) 75%, rgba(0, 0, 0, 1) 100%)",
-              }}
-            />
-            <div
-              className="absolute top-0 left-0 w-full h-full pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.4) 55%, rgba(0, 0, 0, 0.8) 75%, rgba(0, 0, 0, 1) 100%)",
-              }}
-            />
-          </motion.div>
-          <div
-            className={`${afacad.className} w-[30vw] h-[50vh] overflow-hidden mt-[10vh] sticky text-white top-[10vh] z-10 text-[26px]`}
-          >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-            mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-            voluptatum laborum numquam blanditiis harum quisquam eius sed odit
-            fugiat iusto fuga praesentium optio, eaque rerum! Provident
-            similique accusantium nemo autem. Veritatis obcaecati tenetur iure
-            eius earum ut molestias architecto voluptate aliquam nihil, eveniet
-            aliquid culpa officia aut! Impedit sit sunt quaerat, odit, tenetur
-            error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit
-            elit.
-          </div>
-        </div>
-        <section className="mt-[40vh] relative w-screen">
+        {/* <div className="h-[100vh] w-[100vw] bg-white absolute z-50"></div> */}
+        <RecSkill isSlide={isMenuOpen}></RecSkill>
+        
+        <section className="mt-[100vh] relative w-screen">
           <div className="grid w-full" ref={gridRef}>
             <div
-              className="grid-wrap grid grid-cols-3 gap-x-4 gap-y-1"
+              className="grid-wrap grid grid-cols-4 gap-x-4 gap-y-1"
               ref={gridWrapRef}
             >
-              {Array.from({ length: 39 }).map((_, index) => (
+              {imagesDream.map((image, index) => (
                 <div
-                  className="grid__item w-[300px] h-[200px] bg-black"
+                  className="grid__item w-[450px] h-[300px] overflow-hidden rounded-xl bg-black"
                   ref={(el) => (gridItemsRef.current[index] = el)}
                   key={index}
                 >
-                  <div className="grid__item-inner rounded-xl overflow-hidden bg-black">
+                  <div className="grid__item-inner w-full h-full rounded-xl overflow-hidden bg-black">
                     <img
-                      ref={imagesRef}
-                      src={Laptop2.src}
-                      alt={`Laptop ${index}`}
+                      className="object-cover w-full h-full"
+                      src={image.imgSrc.src} // Utilisation de `imgSrc` depuis `imagesDream`
+                      alt={`Dream image ${index}`} // Texte alternatif dynamique
                     />
                   </div>
                 </div>
@@ -887,7 +1221,7 @@ export default function Home() {
       )} */}
       <svg
         class="overlay"
-        className="z-40 h-[100vh] w-[100vw]"
+        className="z-40 absolute pointer-events-none h-[100vh] w-[100vw]"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
       >
@@ -895,7 +1229,7 @@ export default function Home() {
           ref={overlayPathRef}
           vector-effect="non-scaling-stroke"
           d="M 0 100 V 100 Q 50 100 100 100 V 100 z"
-          fill="#131212"
+          fill="white"
         />
       </svg>
     </div>
